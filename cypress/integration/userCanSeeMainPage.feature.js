@@ -10,6 +10,10 @@ describe('User can see main page', () => {
   it('is expected to show the footer', () => {
     cy.get('[data-cy=footer]').should('exist');
   });
+
+  it('is expected to show the login button', () => {
+    cy.get('[data-cy=login-btn]').should('contain', 'Login');
+  });
 })
 
 
