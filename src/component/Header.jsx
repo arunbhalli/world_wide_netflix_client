@@ -1,13 +1,14 @@
-import React from 'react'
+import logInModal from "./LoginModal";
 
 const Header = () => {
   return (
     <div>
       <h1 data-cy="header">Hello World</h1>
-      <button data-cy="login-btn">Login</button>
+      <button onClick={() => logInModal.login()} data-cy="login-btn">
+        Login
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Header
-
+export default Header;

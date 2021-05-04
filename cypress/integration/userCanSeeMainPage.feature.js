@@ -16,6 +16,13 @@ describe('User can see main page', () => {
   });
 })
 
+describe('User can click on login button and login modal appears', () => {
+  it('is expected to show login modal', () => {
+    cy.get('[data-cy=login-btn]').click();
+    cy.get('[data-cy=login-modal]').should('be.visible');
+  });
+})
+
 
 
 
