@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
-// import { Container } from 'semantic-ui-react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { Container } from 'semantic-ui-react';
+import axios from 'axios';
+
 const MainPageMovieContainer = () => {
-	const [tenMovies, setTenMovies] = useState
+	const [tenMovies, setTenMovies] = useState({});
 
-	MovieIndex=async() => {
-		axios.get('/https://worldwidenetflix.herokuapp.com/**').then((response) => {
-			setTenMovies({ movies: response.results })
-		})
-    	}
+	async function fetchData() {
+		const res = await axios.get('https://worldwidenetflix.herokuapp.com/**');
+		res.then((res) => {
+			setTenMovies(res.data.title);
+		});
+	}
 
-	return (
-		<Container id={}>
+	useEffect(() => {
+		fetchData();
+	});
 
-		</Container>
-	)
+	return <Container>{JSON.stringify(tenMovies)}</Container>;
+};
 
-}
-
-export default MainPageMovieContainer
+export default MainPageMovieContainer;
