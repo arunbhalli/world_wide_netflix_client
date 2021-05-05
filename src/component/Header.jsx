@@ -1,12 +1,13 @@
-import logInModal from "./LoginModal";
+import React from "react";
+import { Button } from "semantic-ui-react";
+import LoginModal from "./LoginModal";
 
 const Header = () => {
   return (
     <div>
       <h1 data-cy="header">Hello World</h1>
-      <button onClick={() => logInModal.login()} data-cy="login-btn">
-        Login
-      </button>
+      <LoginModal />
+     
     </div>
   );
 };
