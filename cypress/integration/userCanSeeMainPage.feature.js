@@ -21,8 +21,8 @@ describe('User can click on login button and login modal appears', () => {
     cy.get('[data-cy=login-btn]').click();
     cy.get('[data-cy=login-modal-header]').should('be.visible');
     cy.get('[data-cy=login-modal-content]').within(() => {
-      cy.get('[data-cy=login-email-input]').type('email', 'bob.kramer@hotmail.com')
-      cy.get('[data-cy=login-password]').type('password', 'password')
+      cy.get('[data-cy=login-email-input]').type('bob.kramer@hotmail.com')
+      cy.get('[data-cy=login-password]').type('password')
       cy.get('[data-cy=form-login-btn]').click()
     })
   });
