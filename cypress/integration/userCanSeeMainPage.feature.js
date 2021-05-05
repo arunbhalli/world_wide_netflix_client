@@ -33,8 +33,7 @@ describe('User can see register form', () => {
 		cy.get('[data-cy=login-modal-content]').within(() => {
 			cy.get('[data-cy=registration-email-input]').type(
 				'bob.kramer@hotmail.com'
-			)
-			cy.get('[data-cy=user-country]').select('Sweden')
+      )
 			cy.get('[data-cy=registration-password]').type('password')
 			cy.get('[data-cy=registration-confirmation-password]').type('password')
 			cy.get('[data-cy=form-register-btn]').click()
