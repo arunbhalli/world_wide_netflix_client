@@ -3,12 +3,14 @@ import { Container } from 'semantic-ui-react';
 import axios from 'axios';
 
 const MainPageMovieContainer = () => {
+  debugger
 	const [tenMovies, setTenMovies] = useState({});
 
 	async function fetchData() {
-		const res = await axios.get('https://worldwidenetflix.herokuapp.com/**');
-		res.then((res) => {
-			setTenMovies(res.data.title);
+		 await axios.get('https://worldwidenetflix.herokuapp.com/*')
+		.then((res) => {
+      debugger
+			setTenMovies(res.data.results[1].title);
 		});
 	}
 
