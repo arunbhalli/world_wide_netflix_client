@@ -8,6 +8,7 @@ describe('Visitor can see top 10 movies', () => {
 
 		it('is expected to show a list of top 10 global movies', () => {
 			cy.visit('/');
+			cy.get('[data-cy=movie-container]').should('have.length', 10);
 			cy.get('[data-cy=movie-container]').within(() => {
 				cy.get('[data-cy=movie-0]').within(() => {
 					cy.get('[data-cy=title-header]').should(
@@ -31,7 +32,7 @@ describe('Visitor can see top 10 movies', () => {
 			cy.visit('/');
 			cy.get('[data-cy="error-message"]').should(
 				'contain',
-				'Request failed with status code 500'
+				'Please try again later, our servers are currently not responding'
 			);
 		});
 	});

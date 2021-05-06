@@ -12,7 +12,13 @@ const MainPageMovieContainer = () => {
 			const response = await axios.get('/movies');
 			setTopTenMovies(response.data.results);
 		} catch (error) {
-			setErrorMessage(error.message);
+			if (error.response.status === 500) {
+				setErrorMessage(
+					'Please try again later, our servers are currently not responding'
+				);
+			} else {
+				setErrorMessage(error.message);
+			}
 		}
 	};
 
@@ -22,14 +28,14 @@ const MainPageMovieContainer = () => {
 
 	return (
 		<Container>
-			<Grid data-cy="movie-container">
+			<Grid>
 				<Grid.Row columns={5} stretched padded>
 					{topTenMovies.map((movie, i) => (
-						<Grid.Column>
+						<Grid.Column data-cy='movie-container'>
 							<Card data-cy={`movie-${i}`}>
 								<Image src={movie.img} />
 								<Card.Content>
-									<Card.Header data-cy="title-header">
+									<Card.Header data-cy='title-header'>
 										{he.decode(movie.title)}
 									</Card.Header>
 									<Card.Description>
@@ -41,7 +47,7 @@ const MainPageMovieContainer = () => {
 					))}
 				</Grid.Row>
 			</Grid>
-			{errorMessage && <h1 data-cy="error-message">{errorMessage}</h1>}
+			{errorMessage && <h1 data-cy='error-message'>{errorMessage}</h1>}
 		</Container>
 	);
 };
