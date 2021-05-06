@@ -7,7 +7,7 @@ import he from 'he'
 const MainPageMovieContainer = () => {
 	const [topTenMovies, setTopTenMovies] = useState([])
 
-	async function fetchMovieData() {
+	const fetchMovieData = async () => {
 		await axios.get('/movies').then((res) => {
 			const movies = res.data.results
 			setTopTenMovies(movies)
@@ -16,18 +16,20 @@ const MainPageMovieContainer = () => {
 
 	useEffect(() => {
 		fetchMovieData()
-	},[])
+	}, [])
 
 	return (
 		<Container>
 			<Grid data-cy='movie-container'>
-				<Grid.Row columns={5} stretched padded >
+				<Grid.Row columns={5} stretched padded>
 					{topTenMovies.map((movie, i) => (
 						<Grid.Column>
 							<Card data-cy={`movie-${i}`}>
 								<Image src={movie.img} />
 								<Card.Content>
-									<Card.Header data-cy="title-header">{he.decode(movie.title)}</Card.Header>
+									<Card.Header data-cy='title-header'>
+										{he.decode(movie.title)}
+									</Card.Header>
 									<Card.Description>
 										Rating: {_.round(movie.avgrating, 1)}
 									</Card.Description>
