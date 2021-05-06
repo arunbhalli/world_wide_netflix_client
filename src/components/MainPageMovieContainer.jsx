@@ -6,10 +6,14 @@ import he from 'he';
 
 const MainPageMovieContainer = () => {
 	const [topTenMovies, setTopTenMovies] = useState([]);
-
+	const [errorMessage, setErrorMessage] = useState();
 	const fetchMovieData = async () => {
-		const response = await axios.get('/movies')
-		setTopTenMovies(response.data.results);
+		try {
+			const response = await axios.get('/movies');
+			setTopTenMovies(response.data.results);
+		} catch (error) {
+			setErrorMessage('Wrong email or password');
+		}
 	};
 
 	useEffect(() => {
@@ -18,14 +22,14 @@ const MainPageMovieContainer = () => {
 
 	return (
 		<Container>
-			<Grid data-cy='movie-container'>
+			<Grid data-cy="movie-container">
 				<Grid.Row columns={5} stretched padded>
 					{topTenMovies.map((movie, i) => (
 						<Grid.Column>
 							<Card data-cy={`movie-${i}`}>
 								<Image src={movie.img} />
 								<Card.Content>
-									<Card.Header data-cy='title-header'>
+									<Card.Header data-cy="title-header">
 										{he.decode(movie.title)}
 									</Card.Header>
 									<Card.Description>
