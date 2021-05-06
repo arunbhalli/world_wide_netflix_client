@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { Card, Container, Image, Grid } from 'semantic-ui-react'
-import axios from 'axios'
-import _ from 'lodash'
-import he from 'he'
+import React, { useState, useEffect } from 'react';
+import { Card, Container, Image, Grid } from 'semantic-ui-react';
+import axios from 'axios';
+import _ from 'lodash';
+import he from 'he';
 
 const MainPageMovieContainer = () => {
-	const [topTenMovies, setTopTenMovies] = useState([])
+	const [topTenMovies, setTopTenMovies] = useState([]);
 
 	const fetchMovieData = async () => {
 		await axios.get('/movies').then((res) => {
-			const movies = res.data.results
-			setTopTenMovies(movies)
-		})
-	}
+			const movies = res.data.results;
+			setTopTenMovies(movies);
+		});
+	};
 
 	useEffect(() => {
-		fetchMovieData()
-	}, [])
+		fetchMovieData();
+	}, []);
 
 	return (
 		<Container>
@@ -40,7 +40,7 @@ const MainPageMovieContainer = () => {
 				</Grid.Row>
 			</Grid>
 		</Container>
-	)
-}
+	);
+};
 
-export default MainPageMovieContainer
+export default MainPageMovieContainer;
