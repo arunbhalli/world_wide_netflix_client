@@ -1,11 +1,6 @@
 describe('Visitor can see top 10 movies', () => {
 	before(() => {
-		cy.server()
-		cy.route({
-			method: 'GET',
-			url: 'https://worldwidenetflix.herokuapp.com/**',
-			response: 'fixture:top10movies.json'
-		})
+		cy.intercept('GET', 'https://worldwidenetflix.herokuapp.com/api/movies', {fixture: 'top10movies.json'} )
 	})
 	it('is expected to opend the main page', () => {
 		cy.visit('/')
@@ -13,7 +8,11 @@ describe('Visitor can see top 10 movies', () => {
 
 	it('is expected to show a list of top 10 global movies', () => {
 		cy.get('[data-cy=movie-container]').within(() => {
-			cy.get('[data-cy=movie-1]').should('contain', 'Horsing Around')
+			cy.get('[data-cy=movie-0]').within(() => {
+				cy.get('[data-cy=title-header]')
+			.should('contain', 'The Shawshank Redemption')
+			})
+			
 		})
 	})
 })
