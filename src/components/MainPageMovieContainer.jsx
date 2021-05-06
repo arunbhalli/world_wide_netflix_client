@@ -12,7 +12,7 @@ const MainPageMovieContainer = () => {
 			const response = await axios.get('/movies');
 			setTopTenMovies(response.data.results);
 		} catch (error) {
-			setErrorMessage('Wrong email or password');
+			setErrorMessage(error.message);
 		}
 	};
 
@@ -41,6 +41,7 @@ const MainPageMovieContainer = () => {
 					))}
 				</Grid.Row>
 			</Grid>
+			{errorMessage && <h1 data-cy="error-message">{errorMessage}</h1>}
 		</Container>
 	);
 };
