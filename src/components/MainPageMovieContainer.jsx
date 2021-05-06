@@ -8,10 +8,8 @@ const MainPageMovieContainer = () => {
 	const [topTenMovies, setTopTenMovies] = useState([]);
 
 	const fetchMovieData = async () => {
-		await axios.get('/movies').then((res) => {
-			const movies = res.data.results;
-			setTopTenMovies(movies);
-		});
+		const response = await axios.get('/movies')
+		setTopTenMovies(response.data.results);
 	};
 
 	useEffect(() => {
