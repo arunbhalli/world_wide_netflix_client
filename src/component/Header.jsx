@@ -1,12 +1,20 @@
 import React from "react";
 import LoginModal from "./LoginModal";
-import { Header } from "semantic-ui-react";
+import { Header, Segment, Sticky } from "semantic-ui-react";
 
 const HeaderMainPage = () => {
+
   return (
     <div data-cy="header">
-      <Header>World Wide Netflix</Header>
-      <LoginModal />
+      <Sticky onTop>
+        <Segment inverted>
+          <Header textAlign='center' size='huge' color='red' inverted >World Wide Netflix</Header>
+          <LoginModal />
+        </Segment>
+      </Sticky>
+     
+      
+      
   
     </div>
   );

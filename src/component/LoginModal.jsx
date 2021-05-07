@@ -13,7 +13,7 @@ import {
 const LoginModal = () => {
 	const [visibility, setVisibility] = useState(false);
 	return (
-		<Segment>
+		
 			<Menu inverted>
 				<Modal
 					centered={false}
@@ -108,7 +108,7 @@ const LoginModal = () => {
 					</Modal.Actions>
 				</Modal>
 			</Menu>
-		</Segment>
+		
 	);
 };
 
