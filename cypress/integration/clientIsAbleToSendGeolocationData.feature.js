@@ -25,6 +25,7 @@ describe('client can send users geolocation to API', () => {
           );
         },
       });
+			cy.get('[data-cy=error-message]').should('not.exist')
       cy.get('[data-cy=movie-container]').within(() => {
         cy.get('[data-cy=movie-0]').within(() => {
           cy.get('[data-cy=title-header]').should(
