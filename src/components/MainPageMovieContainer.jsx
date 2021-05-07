@@ -10,14 +10,16 @@ const MainPageMovieContainer = () => {
   const [errorMessage, setErrorMessage] = useState();
 
   const fetchMovieData = async () => {
-    let [lat, long] = await getUserLocation();
+		let [lat, long] = await getUserLocation();
     try {
       if (lat && long) {
         const response = await axios.get(`/movies/?lat=${lat}&long=${long}`);
         setTopTenMovies(response.data.body);
+				setErrorMessage('')
       } else {
         const response = await axios.get(`/movies/`);
         setTopTenMovies(response.data.body);
+				setErrorMessage('Allow your location to show movies that\'s not from your country')
       }
     } catch (error) {
       if (error.response.status === 500) {
@@ -36,6 +38,7 @@ const MainPageMovieContainer = () => {
 
   return (
     <Container>
+			{errorMessage && <h1 data-cy="error-message">{errorMessage}</h1>}
       <Grid>
         <Grid.Row columns={5} stretched padded>
           {topTenMovies.map((movie, i) => (
@@ -55,7 +58,6 @@ const MainPageMovieContainer = () => {
           ))}
         </Grid.Row>
       </Grid>
-      {errorMessage && <h1 data-cy="error-message">{errorMessage}</h1>}
     </Container>
   );
 };

@@ -62,6 +62,7 @@ describe("client can send users geolocation to API", () => {
           );
         },
       });
+			cy.get("[data-cy=error-message]").should('contain', 'Allow your location to show movies that\'s not from your country')
       cy.get("[data-cy=movie-container]").within(() => {
         cy.get("[data-cy=movie-0]").within(() => {
           cy.get("[data-cy=title-header]").should(

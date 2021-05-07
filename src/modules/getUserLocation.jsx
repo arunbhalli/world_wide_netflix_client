@@ -4,5 +4,8 @@ export const getUserLocation = async () => {
       return position.coords;
     }
   );
-  return [coords.latitude, coords.longitude];
+  if (coords){
+    return [coords.latitude, coords.longitude];
+  }
+  return [null, null]
 };
