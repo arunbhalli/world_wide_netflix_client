@@ -21,7 +21,7 @@ const LoginModal = () => {
 				onOpen={() => setVisibility(true)}
 				trigger={
 					<Menu.Item position='right'>
-						<Button data-cy='login-btn' inverted>
+						<Button data-cy='login-btn' color="red" inverted>
 							Login/Register
 						</Button>
 					</Menu.Item>
