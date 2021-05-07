@@ -3,22 +3,22 @@ import { Card, Container, Image, Grid } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 import he from "he";
-import { getUserLocation } from '../modules/getUserLocation'
+import { getUserLocation } from "../modules/getUserLocation";
 
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
-  const [errorMessage, setErrorMessage] = useState();	
-	
-	let [lat, long] = getUserLocation()
+  const [errorMessage, setErrorMessage] = useState();
+
   const fetchMovieData = async () => {
-		try {						
-			if(lat && long) {
-				const response = await axios.get(`/movies/?lat=${lat}&long=${long}`);
-				setTopTenMovies(response.data.body);
-			} else {
-				const response = await axios.get(`/movies/`);
-				setTopTenMovies(response.data.body);
-			}	
+    let [lat, long] = await getUserLocation();
+    try {
+      if (lat && long) {
+        const response = await axios.get(`/movies/?lat=${lat}&long=${long}`);
+        setTopTenMovies(response.data.body);
+      } else {
+        const response = await axios.get(`/movies/`);
+        setTopTenMovies(response.data.body);
+      }
     } catch (error) {
       if (error.response.status === 500) {
         setErrorMessage(
