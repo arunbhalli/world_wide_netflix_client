@@ -8,18 +8,17 @@ import { getUserLocation } from '../modules/getUserLocation'
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState();	
-
-	let [latitude, longitude] = getUserLocation()
-
+	
+	let [lat, long] = getUserLocation()
   const fetchMovieData = async () => {
-    try {						
-      const response = await axios.get("/movies/", {
-        params: {
-          lat: latitude,
-          long: longitude,
-        },
-      });
-      setTopTenMovies(response.data.body);
+		try {						
+			if(lat && long) {
+				const response = await axios.get(`/movies/?lat=${lat}&long=${long}`);
+				setTopTenMovies(response.data.body);
+			} else {
+				const response = await axios.get(`/movies/`);
+				setTopTenMovies(response.data.body);
+			}	
     } catch (error) {
       if (error.response.status === 500) {
         setErrorMessage(

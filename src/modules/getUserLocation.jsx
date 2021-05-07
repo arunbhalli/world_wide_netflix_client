@@ -1,5 +1,11 @@
+import React, { useState } from "react"
+
 export const getUserLocation = () => {  
-  let latitude = 55.7842
-  let longitude = 12.4518
-  return [latitude, longitude]
+  const [lat, setLat] = useState()
+  const [long, setLong] = useState()
+  window.navigator.geolocation.getCurrentPosition((position) => {
+    let lat = position.coords.latitude
+    let long= position.coords.longitude 
+  })
+  return [lat, long]
 }
