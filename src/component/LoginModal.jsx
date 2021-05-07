@@ -21,9 +21,11 @@ const LoginModal = () => {
 					onClose={() => setVisibility(false)}
 					onOpen={() => setVisibility(true)}
 					trigger={
+						<Menu.Item position='right' >
 						<Button data-cy='login-btn' inverted secondary>
 							Login/Register
 						</Button>
+						</Menu.Item>
 					}>
 					<Modal.Header data-cy='login-modal-header'></Modal.Header>
 					<Modal.Content data-cy='login-modal-content'>
