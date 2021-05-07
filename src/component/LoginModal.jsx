@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react';
 import {
 	Modal,
 	Button,
@@ -7,98 +7,107 @@ import {
 	Grid,
 	Segment,
 	Header,
-} from 'semantic-ui-react'
+	Menu,
+} from 'semantic-ui-react';
 
 const LoginModal = () => {
-	const [visibility, setVisibility] = useState(false)
+	const [visibility, setVisibility] = useState(false);
 	return (
-		<Modal
-			centered={false}
-			open={visibility}
-			onClose={() => setVisibility(false)}
-			onOpen={() => setVisibility(true)}
-			trigger={<Button data-cy='login-btn'>Login/Register</Button>}>
-			<Modal.Header data-cy='login-modal-header'></Modal.Header>
-			<Modal.Content data-cy='login-modal-content'>
-				<Segment placeholder>
-					<Grid columns={2} stackable textAlign='center'>
-						<Divider vertical>Or</Divider>
-						<Grid.Row verticalAlign='middle'>
-							<Grid.Column>
-								<Header as='h3'>Login</Header>
-								<Form>
-									<Form.Field widths={2}>
-										<Form.Input
-											fluid
-											type='email'
-											label='email'
-											placeholder='email'
-											data-cy='login-email-input'
-											required
-										/>
-										<Form.Input
-											fluid
-											type='password'
-											label='Password'
-											placeholder='Password'
-											data-cy='login-password'
-											required
-										/>
-									</Form.Field>
-									<Button
-										type='submit'
-										data-cy='form-login-btn'
-										onClick={() => setVisibility(false)}>
-										Login
-									</Button>
-								</Form>
-							</Grid.Column>
-							<Grid.Column>
-								<Header>Register</Header>
-								<Form>
-									<Form.Field widths='equal'>
-										<Form.Input
-											fluid
-											type='email'
-											label='email'
-											placeholder='email'
-											data-cy='registration-email-input'
-											required
-										/>
-										<Form.Input
-											fluid
-											type='password'
-											label='Password'
-											placeholder='Password'
-											data-cy='registration-password'
-											required
-										/>
-										<Form.Input
-											fluid
-											type='password'
-											label='Password'
-											placeholder='Confirm Password'
-											data-cy='registration-confirmation-password'
-											required
-										/>
-									</Form.Field>
-									<Button
-										type='submit'
-										data-cy='form-register-btn'
-										onClick={() => setVisibility(false)}>
-										Register
-									</Button>
-								</Form>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
-				</Segment>
-			</Modal.Content>
-			<Modal.Actions>
-				<Button onClick={() => setVisibility(false)}>Close</Button>
-			</Modal.Actions>
-		</Modal>
-	)
-}
+		<Segment>
+			<Menu inverted>
+				<Modal
+					centered={false}
+					open={visibility}
+					onClose={() => setVisibility(false)}
+					onOpen={() => setVisibility(true)}
+					trigger={
+						<Button data-cy='login-btn' inverted secondary>
+							Login/Register
+						</Button>
+					}>
+					<Modal.Header data-cy='login-modal-header'></Modal.Header>
+					<Modal.Content data-cy='login-modal-content'>
+						<Segment placeholder>
+							<Grid columns={2} stackable textAlign='center'>
+								<Divider vertical>Or</Divider>
+								<Grid.Row verticalAlign='middle'>
+									<Grid.Column>
+										<Header as='h3'>Login</Header>
+										<Form>
+											<Form.Field widths={2}>
+												<Form.Input
+													fluid
+													type='email'
+													label='email'
+													placeholder='email'
+													data-cy='login-email-input'
+													required
+												/>
+												<Form.Input
+													fluid
+													type='password'
+													label='Password'
+													placeholder='Password'
+													data-cy='login-password'
+													required
+												/>
+											</Form.Field>
+											<Button
+												type='submit'
+												data-cy='form-login-btn'
+												onClick={() => setVisibility(false)}>
+												Login
+											</Button>
+										</Form>
+									</Grid.Column>
+									<Grid.Column>
+										<Header>Register</Header>
+										<Form>
+											<Form.Field widths='equal'>
+												<Form.Input
+													fluid
+													type='email'
+													label='email'
+													placeholder='email'
+													data-cy='registration-email-input'
+													required
+												/>
+												<Form.Input
+													fluid
+													type='password'
+													label='Password'
+													placeholder='Password'
+													data-cy='registration-password'
+													required
+												/>
+												<Form.Input
+													fluid
+													type='password'
+													label='Password'
+													placeholder='Confirm Password'
+													data-cy='registration-confirmation-password'
+													required
+												/>
+											</Form.Field>
+											<Button
+												type='submit'
+												data-cy='form-register-btn'
+												onClick={() => setVisibility(false)}>
+												Register
+											</Button>
+										</Form>
+									</Grid.Column>
+								</Grid.Row>
+							</Grid>
+						</Segment>
+					</Modal.Content>
+					<Modal.Actions>
+						<Button onClick={() => setVisibility(false)}>Close</Button>
+					</Modal.Actions>
+				</Modal>
+			</Menu>
+		</Segment>
+	);
+};
 
-export default LoginModal
+export default LoginModal;
