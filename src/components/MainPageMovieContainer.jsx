@@ -1,28 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
-import { getUserLocation } from '../modules/getUserLocation';
 import MovieCard from '../components/MovieCard'
 
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
 
-  const fetchMovieData = async (lat, lon) => {
+  const getPosition = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  };
+
+  const fetchMovieData = async () => {
+    
     try {
-      if (lat && lon) {
-        const response = await axios.get(`/movies/?lat=${lat}&lon=${lon}`);
+      const pos = await getPosition()
+      const { latitude, longitude } = pos.coords
+      debugger
+      if (latitude && longitude) {
+        debugger
+        const response = await axios.get(`/movies/?lat=${latitude}&lon=${longitude}`);
+        debugger
         setTopTenMovies(response.data.body);
         setErrorMessage('');
-      } else {
-        const response = await axios.get(`/movies/`);
-        setTopTenMovies(response.data.body);
-        setErrorMessage(
-          "Allow your location to show movies that's not from your country"
-        );
       }
     } catch (error) {
-      if (error.response.status === 500) {
+      debugger
+      if (error.message === 'User denied Geolocation') {
+        const response = await axios.get(`/movies/`);
+        setTopTenMovies(response.data.body);
+        setErrorMessage("Allow your location to show movies that's not from your country")
+      } else if (error.response.status === 500) {
         setErrorMessage(
           'Please try again later, our servers are currently not responding'
         );
@@ -33,10 +43,7 @@ const MainPageMovieContainer = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      let [lat, lon] = await getUserLocation();
-      fetchMovieData(lat, lon);
-    })();
+    fetchMovieData();
   }, []);
 
   let movieList = topTenMovies.map((movie, i) => {         
