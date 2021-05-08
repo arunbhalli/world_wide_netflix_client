@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
-import { getUserLocation } from '../modules/getUserLocation';
+// import { getUserLocation } from '../modules/getUserLocation';
 import MovieCard from '../components/MovieCard'
 
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
 
-  const fetchMovieData = async (lat, lon) => {
+  const getPosition = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+  };
+
+  const fetchMovieData = async () => {
     try {
+      const pos = await getPosition()
+      const { lat, lon } = pos.coords
       if (lat && lon) {
         const response = await axios.get(`/movies/?lat=${lat}&lon=${lon}`);
         setTopTenMovies(response.data.body);
@@ -33,10 +41,7 @@ const MainPageMovieContainer = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      let [lat, lon] = await getUserLocation();
-      fetchMovieData(lat, lon);
-    })();
+    fetchMovieData();
   }, []);
 
   let movieList = topTenMovies.map((movie, i) => {         
