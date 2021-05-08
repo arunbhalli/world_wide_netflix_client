@@ -3,7 +3,7 @@ describe('Visitor can see top 10 movies', () => {
     before(() => {
       cy.intercept(
         'GET',
-        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&long=12.4518',
+        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518',
         {
           fixture: 'top10movies.json',
         }
@@ -42,7 +42,7 @@ describe('Visitor can see top 10 movies', () => {
     before(() => {
       cy.intercept(
         'GET',
-        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&long=12.4518',
+        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518',
         {
           statusCode: 500,
           error: '500 Internal Server Error |  0     bytes\n',

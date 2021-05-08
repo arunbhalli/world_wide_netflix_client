@@ -3,7 +3,7 @@ describe('client can send users geolocation to API', () => {
     beforeEach(() => {
       cy.intercept(
         'GET',
-        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&long=12.4518',
+        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518',
         {
           fixture: 'top10movies.json',
         }

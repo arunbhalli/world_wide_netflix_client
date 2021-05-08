@@ -9,10 +9,10 @@ const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
 
-  const fetchMovieData = async (lat, long) => {
+  const fetchMovieData = async (lat, lon) => {
     try {
-      if (lat && long) {
-        const response = await axios.get(`/movies/?lat=${lat}&long=${long}`);
+      if (lat && lon) {
+        const response = await axios.get(`/movies/?lat=${lat}&lon=${lon}`);
         setTopTenMovies(response.data.body);
         setErrorMessage('');
       } else {
@@ -35,8 +35,8 @@ const MainPageMovieContainer = () => {
 
   useEffect(() => {
     (async () => {
-      let [lat, long] = await getUserLocation();
-      fetchMovieData(lat, long);
+      let [lat, lon] = await getUserLocation();
+      fetchMovieData(lat, lon);
     })();
   }, []);
 
