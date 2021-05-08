@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Container, Image, Grid } from 'semantic-ui-react';
+import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
-import _ from 'lodash';
-import he from 'he';
 import { getUserLocation } from '../modules/getUserLocation';
+import MovieCard from '../components/MovieCard'
 
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
@@ -40,28 +39,14 @@ const MainPageMovieContainer = () => {
     })();
   }, []);
 
+  let movieList = topTenMovies.map((movie, i) => {         
+  return (<MovieCard movie={movie} i={i}/>)
+  })
+
   return (
     <Container>
       {errorMessage && <h1 data-cy='error-message'>{errorMessage}</h1>}
-      <Grid>
-        <Grid.Row columns={5} stretched padded>
-          {topTenMovies.map((movie, i) => (
-            <Grid.Column data-cy='movie-container'>
-              <Card data-cy={`movie-${i}`}>
-                <Image src={movie.img} />
-                <Card.Content>
-                  <Card.Header data-cy='title-header'>
-                    {he.decode(movie.title)}
-                  </Card.Header>
-                  <Card.Description>
-                    Rating: {_.round(movie.avgrating, 1)}
-                  </Card.Description>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          ))}
-        </Grid.Row>
-      </Grid>
+      <Card.Group itemsPerRow={5} centered>{movieList}</Card.Group>
     </Container>
   );
 };
