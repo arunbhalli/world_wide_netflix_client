@@ -7,14 +7,10 @@ describe('Visitor can see top 100 movies', () => {
         {
           fixture: 'top100Movies.json',
         }
-      ),
-        cy.intercept(
-          'GET',
-          'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518',
-          {
-            fixture: 'user_registration.json',
-          }
-        );
+      );
+      cy.intercept('POST', 'https://worldwidenetflix.herokuapp.com/api/auth', {
+        fixture: 'user_registration.json',
+      });
     });
 
     it('is expected to show a list of top 100 global movies', () => {
