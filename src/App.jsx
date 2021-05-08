@@ -1,17 +1,16 @@
-import React from 'react'
-import Footer from './component/Footer'
-import HeaderMainPage from './component/Header'
+import React from 'react';
+import Footer from './components/Footer';
+import HeaderMainPage from './components/Header';
 import MainPageMovieContainer from './components/MainPageMovieContainer';
-
 
 function App() {
   return (
     <>
-    <HeaderMainPage />
-    <MainPageMovieContainer />
-    <Footer />
+      <HeaderMainPage />
+      <MainPageMovieContainer />
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
