@@ -47,13 +47,14 @@ describe('client can send users geolocation to API', () => {
         }
       );
     });
+    
     it('loads fake data', () => {
       cy.visit('/', {
         onBeforeLoad(window) {
           const stubLocation = {
             coords: {
-              latitude: null,
-              longitude: null,
+              latitude: 55.7842,
+              longitude: 12.4518,
             },
           };
           cy.stub(window.navigator.geolocation, 'getCurrentPosition').callsFake(
@@ -71,10 +72,37 @@ describe('client can send users geolocation to API', () => {
         cy.get('[data-cy=movie-0]').within(() => {
           cy.get('[data-cy=title-header]').should(
             'contain',
-            'The Intouchables'
+            'The Shawshank Redemption'
           );
         });
       });
     });
+    ////////
+    // it('loads fake data', () => {
+    //   cy.visit('/', {
+    //     onBeforeLoad(window) {
+    //       const stubLocation = {
+    //         coords: {
+    //           latitude: 55.7842,
+    //           longitude: 12.4518,
+    //         },
+    //       };
+    //       cy.stub(window.navigator.geolocation, 'getCurrentPosition').callsFake(
+    //         (callback) => {
+    //           return callback(stubLocation);
+    //         }
+    //       );
+    //     },
+    //   });
+    //   cy.get('[data-cy=movie-container]').within(() => {
+    //     cy.get('[data-cy=movie-0]').within(() => {
+    //       cy.get('[data-cy=title-header]').should(
+    //         'contain',
+    //         'The Shawshank Redemption'
+    //       );
+    //     });
+    //   });
+    // });
+    ////
   });
 });

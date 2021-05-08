@@ -5,7 +5,7 @@ import MovieCard from '../components/MovieCard'
 
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState([]);
 
   const getPosition = () => {
     return new Promise((resolve, reject) => {
@@ -18,11 +18,10 @@ const MainPageMovieContainer = () => {
     try {
       const pos = await getPosition()
       const { latitude, longitude } = pos.coords
-      debugger
       if (latitude && longitude) {
-        debugger
+      
+
         const response = await axios.get(`/movies/?lat=${latitude}&lon=${longitude}`);
-        debugger
         setTopTenMovies(response.data.body);
         setErrorMessage('');
       }
@@ -52,8 +51,8 @@ const MainPageMovieContainer = () => {
 
   return (
     <Container >
-      {errorMessage && <h1 data-cy='error-message'>{errorMessage}</h1>}
-      <Card.Group data-cy='movie-container' itemsPerRow={5} centered>{movieList}</Card.Group>
+      {errorMessage && <h1 data-cy='error-message'>"Allow your location to show movies that's not from your country"</h1>}
+      <Card.Group data-cy="movie-container" itemsPerRow={5} centered>{movieList}</Card.Group>
     </Container>
   );
 };
