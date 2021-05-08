@@ -26,7 +26,7 @@ describe('Visitor can see top 10 movies', () => {
           );
         },
       });
-      cy.get('[data-cy=movie-container]').should('have.length', 10);
+      cy.get('[data-cy=movie-container]').find('img').should('have.length', 10);
       cy.get('[data-cy=movie-container]').within(() => {
         cy.get('[data-cy=movie-0]').within(() => {
           cy.get('[data-cy=title-header]').should(
@@ -66,7 +66,7 @@ describe('Visitor can see top 10 movies', () => {
           );
         },
       });
-      cy.get('[data-cy="error-message"]').should(
+      cy.get('[data-cy=error-message]').should(
         'contain',
         'Please try again later, our servers are currently not responding'
       );

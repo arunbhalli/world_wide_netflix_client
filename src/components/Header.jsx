@@ -5,7 +5,7 @@ import { Header, Segment } from 'semantic-ui-react';
 const HeaderMainPage = () => {
   return (
     <div data-cy='header'>
-      <Segment inverted>
+      <Segment inverted style={{ borderRadius: 0 }}>
         <Header textAlign='center' size='huge' color='red' inverted>
           World Wide Netflix
         </Header>

@@ -40,13 +40,13 @@ const MainPageMovieContainer = () => {
   }, []);
 
   let movieList = topTenMovies.map((movie, i) => {         
-  return (<MovieCard movie={movie} i={i}/>)
+  return (<MovieCard data-cy='movie-card' movie={movie} i={i}/>)
   })
 
   return (
-    <Container>
+    <Container >
       {errorMessage && <h1 data-cy='error-message'>{errorMessage}</h1>}
-      <Card.Group itemsPerRow={5} centered>{movieList}</Card.Group>
+      <Card.Group data-cy='movie-container' itemsPerRow={5} centered>{movieList}</Card.Group>
     </Container>
   );
 };
