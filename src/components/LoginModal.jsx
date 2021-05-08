@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {useHistory} from 'react-router-dom'
+import axios from 'axios'
 import {
   Modal,
   Button,
@@ -12,6 +14,28 @@ import {
 
 const LoginModal = () => {
   const [visibility, setVisibility] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const history = useHistory()
+  
+ async function submit() {
+
+  let item = {email, password, confirmPassword}
+  console.warn(item)
+
+  let result= await axios.post("http://localhost:3001/api/auth",{
+
+    body: JSON.stringify(item),
+    header:{
+    "Content-Type":'application/json'},
+    "Accept": 'application/json'
+  })
+  result =await result.json()
+  localStorage.setItem("result",result)
+  history.push("/add")
+ }
+
   return (
     <Menu inverted>
       <Modal
@@ -71,6 +95,7 @@ const LoginModal = () => {
                         label='email'
                         placeholder='email'
                         data-cy='registration-email-input'
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                       <Form.Input
@@ -79,6 +104,7 @@ const LoginModal = () => {
                         label='Password'
                         placeholder='Password'
                         data-cy='registration-password'
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                       <Form.Input
@@ -87,13 +113,15 @@ const LoginModal = () => {
                         label='Password'
                         placeholder='Confirm Password'
                         data-cy='registration-confirmation-password'
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                       />
                     </Form.Field>
                     <Button
                       type='submit'
                       data-cy='form-register-btn'
-                      onClick={() => setVisibility(false)}>
+                      onClick={submit}
+                      >
                       Register
                     </Button>
                   </Form>
