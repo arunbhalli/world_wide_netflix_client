@@ -53,8 +53,8 @@ describe('client can send users geolocation to API', () => {
         onBeforeLoad(window) {
           const stubLocation = {
             coords: {
-              latitude: false,
-              longitude: false,
+              latitude: null,
+              longitude: null,
             },
           };
           cy.stub(window.navigator.geolocation, 'getCurrentPosition').callsFake(
