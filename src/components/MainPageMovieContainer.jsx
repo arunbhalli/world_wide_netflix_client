@@ -5,7 +5,7 @@ import MovieCard from '../components/MovieCard';
 
 const MainPageMovieContainer = () => {
   const [topTenMovies, setTopTenMovies] = useState([]);
-  const [errorMessage, setErrorMessage] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getPosition = () => {
     return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ const MainPageMovieContainer = () => {
         setErrorMessage(
           "Allow your location to show movies that's not from your country"
         );
-      } else if (error.status === 500) {
+      } else if (error.response.status === 500) {
         setErrorMessage(
           'Please try again later, our servers are currently not responding'
         );

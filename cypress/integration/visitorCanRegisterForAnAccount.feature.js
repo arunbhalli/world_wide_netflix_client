@@ -26,7 +26,6 @@ describe('Visitor can see top 100 movies', () => {
         cy.get('[data-cy=registration-password]').type('password');
         cy.get('[data-cy=registration-confirmation-password]').type('password');
         cy.get('[data-cy=form-register-btn]').click();
-        cy.get('[data-cy=movie-container]').find('img').should('have.length', 100);
       });
     });
   });
