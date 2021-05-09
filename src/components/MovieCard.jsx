@@ -1,9 +1,19 @@
 import React from 'react';
 import he from 'he';
 import _ from 'lodash';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Flag, Image } from 'semantic-ui-react';
 
 const MovieCard = ({ movie, i }) => {
+  let countryArray = Object.keys(JSON.parse('{' + movie.clist + '}'))
+  
+  if (countryArray.length > 10) {
+    countryArray.pop() 
+  }
+  
+  let countryList = countryArray.map((country) => {
+    return <Flag name={_.toLower(country)}/>
+  })
+  
   return (
     <Card data-cy={`movie-${i}`}>
       <Image src={movie.img} />
@@ -13,6 +23,7 @@ const MovieCard = ({ movie, i }) => {
         </Card.Header>
         <Card.Description>
           Rating: {_.round(movie.avgrating, 1)}
+          Availible in: {countryList}
         </Card.Description>
       </Card.Content>
     </Card>
