@@ -34,6 +34,7 @@ describe('Visitor can see top 10 movies', () => {
             'The Shawshank Redemption'
           );
           cy.get('[data-cy=flag-list]').find('i').should('have.length', 10);
+          cy.get('[data-cy=netflix-link]').find('href').should('contain', 'https://netflix.com/title/70005379')
         });
       });
     });
