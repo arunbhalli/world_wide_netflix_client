@@ -14,18 +14,27 @@ const MainPageMovieContainer = ({ update, query }) => {
   };
 
   useEffect(() => {
-    const fetchMovieData = async () => {
+    const fetchMovieData = async (query) => {
       try {
-        const pos = await getPosition();
-        const { latitude, longitude } = pos.coords;
-        if (latitude && longitude) {
+        if (query) {
           let headers = JSON.parse(localStorage.getItem('userData'));
-          const response = await axios.get(
-            `/movies/?lat=${latitude}&lon=${longitude}`,
-            { headers: headers }
-          );
+          const response = await axios.get(`/movies/?query=${query}`, {
+            headers: headers,
+          });
           setTopTenMovies(response.data.body);
           setErrorMessage('');
+        } else {
+          const pos = await getPosition();
+          const { latitude, longitude } = pos.coords;
+          if (latitude && longitude) {
+            let headers = JSON.parse(localStorage.getItem('userData'));
+            const response = await axios.get(
+              `/movies/?lat=${latitude}&lon=${longitude}`,
+              { headers: headers }
+            );
+            setTopTenMovies(response.data.body);
+            setErrorMessage('');
+          }
         }
       } catch (error) {
         if (error.message === 'User denied Geolocation') {
@@ -43,21 +52,9 @@ const MainPageMovieContainer = ({ update, query }) => {
         }
       }
     };
-		const searchMovies = async (query) => {			
-			debugger
-			let headers = JSON.parse(localStorage.getItem('userData'));
-			debugger
-			const response = await axios.get(
-				`/movies/?query=${query}`,
-				{ headers: headers }
-			);
-			debugger
-			setTopTenMovies(response.data.body);
-			setErrorMessage('');
-		}
-    fetchMovieData();
-		searchMovies(query)
-  }, [update, query]);
+
+    fetchMovieData(query);
+  }, [query, update]);
 
   let movieList = topTenMovies.map((movie, i) => {
     return <MovieCard data-cy='movie-card' movie={movie} i={i} />;
@@ -65,7 +62,11 @@ const MainPageMovieContainer = ({ update, query }) => {
 
   return (
     <Container>
-      {errorMessage && <h1 id='error-message' data-cy='error-message'>{errorMessage}</h1>}
+      {errorMessage && (
+        <h1 id='error-message' data-cy='error-message'>
+          {errorMessage}
+        </h1>
+      )}
       <Card.Group data-cy='movie-container' itemsPerRow={5} centered>
         {movieList}
       </Card.Group>

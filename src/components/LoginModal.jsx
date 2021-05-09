@@ -9,12 +9,10 @@ import {
   Segment,
   Header,
   Menu,
-  Input,
 } from 'semantic-ui-react';
 
 const LoginModal = ({ setUpdate, setQuery }) => {
   const [visibility, setVisibility] = useState(false);
-  //const [search, setSearch] = useState();
 
   const registerUser = async (event) => {
     event.preventDefault();
@@ -75,8 +73,8 @@ const LoginModal = ({ setUpdate, setQuery }) => {
       <Menu.Item position='centered'>
         <Form onSubmit={(event) => onSubmit(event)}>
           <Form.Input
-            type='text'            
-            name='search'            
+            type='text'
+            name='search'
             placeholder='Search Movie...'
             data-cy='search-input'
           />
