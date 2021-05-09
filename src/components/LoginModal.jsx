@@ -15,7 +15,7 @@ const LoginModal = () => {
   const [visibility, setVisibility] = useState(false);
   const [renderForm, setRenderForm] = useState(false);
 
-  const registerUser = (event) => {
+  const registerUser = async (event) => {
     debugger;
     event.preventDefault();
     let credentials = {
@@ -23,23 +23,23 @@ const LoginModal = () => {
       password: event.target.password.value,
       password_confirmation: event.target.passwordConfirmation.value,
     };
-  };
 
-  try {
-    let response = await axios.post('/api/auth', credentials);
-    const userCredentials = {
-      uid: response.headers['uid'],
-      client: response.headers['client'],
-      access_token: response.headers['access-token'],
-      expiry: response.headers['expiry'],
-      token_type: 'Bearer',
-    };
+    try {
+      let response = await axios.post('/api/auth', credentials);
+      const userCredentials = {
+        uid: response.headers['uid'],
+        client: response.headers['client'],
+        access_token: response.headers['access-token'],
+        expiry: response.headers['expiry'],
+        token_type: 'Bearer',
+      };
 
-    localStorage.setItem('userData', JSON.stringify(userCredentials));
+      localStorage.setItem('userData', JSON.stringify(userCredentials));
       
-  } catch (error) {
-    console.log(error);
-  }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Menu inverted>
@@ -47,7 +47,9 @@ const LoginModal = () => {
         centered={false}
         open={visibility}
         onClose={() => setRenderForm(false)}
-        onClose={() => {setVisibility(false); }}
+        onClose={() => {
+          setVisibility(false);
+        }}
         onOpen={() => setVisibility(true)}
         onOpen={() => setRenderForm(true)}
         open={renderForm}
