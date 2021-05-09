@@ -22,8 +22,8 @@ const MovieCard = ({ movie, i }) => {
           {he.decode(movie.title)}
         </Card.Header>
         <Card.Description>
-          Rating: {_.round(movie.avgrating, 1)}
-          Availible in: {countryList}
+          <p>Rating: {_.round(movie.avgrating, 1)}</p>
+          <p data-cy='flag-list' >Availible in: {countryList}</p>
         </Card.Description>
       </Card.Content>
     </Card>

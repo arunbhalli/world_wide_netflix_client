@@ -33,6 +33,7 @@ describe('Visitor can see top 10 movies', () => {
             'contain',
             'The Shawshank Redemption'
           );
+          cy.get('[data-cy=flag-list]').find('i').should('have.length', 10);
         });
       });
     });
