@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
 import {
   Modal,
   Button,
@@ -14,42 +13,54 @@ import {
 
 const LoginModal = () => {
   const [visibility, setVisibility] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const history = useHistory()
-  
- async function submit() {
+  const [renderForm, setRenderForm] = useState(false);
 
-  let item = {email, password, confirmPassword}
-  console.warn(item)
+  const registerUser = async (event) => {
+    event.preventDefault();
+    let credentials = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+      password_confirmation: event.target.passwordConfirmation.value,
+    };
 
-  let result= await axios.post("http://localhost:3001/api/auth",{
+    try {
+      let response = await axios.post('/api/auth', credentials);
+      debugger
+      const userCredentials = {
+        uid: response.headers['uid'],
+        client: response.headers['client'],
+        access_token: response.headers['access-token'],
+        expiry: response.headers['expiry'],
+        token_type: 'Bearer',
+      };
 
-    body: JSON.stringify(item),
-    header:{
-    "Content-Type":'application/json'},
-    "Accept": 'application/json'
-  })
-  result =await result.json()
-  localStorage.setItem("result",result)
-  history.push("/add")
- }
+      localStorage.setItem('userData', JSON.stringify(userCredentials));
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Menu inverted>
       <Modal
         centered={false}
         open={visibility}
-        onClose={() => setVisibility(false)}
+        onClose={() => setRenderForm(false)}
+        onClose={() => {
+          setVisibility(false);
+        }}
         onOpen={() => setVisibility(true)}
+        onOpen={() => setRenderForm(true)}
+        open={renderForm}
         trigger={
           <Menu.Item position='right'>
             <Button data-cy='login-btn' color='red' inverted>
               Login/Register
             </Button>
           </Menu.Item>
-        }>
+        }
+      >
         <Modal.Header data-cy='login-modal-header'></Modal.Header>
         <Modal.Content data-cy='login-modal-content'>
           <Segment placeholder>
@@ -60,7 +71,7 @@ const LoginModal = () => {
                   <Header as='h3'>Login</Header>
                   <Form>
                     <Form.Field widths={2}>
-                      <Form.Input
+                      <Form.Inputflix
                         fluid
                         type='email'
                         label='email'
@@ -80,48 +91,52 @@ const LoginModal = () => {
                     <Button
                       type='submit'
                       data-cy='form-login-btn'
-                      onClick={() => setVisibility(false)}>
+                      onClick={() => setVisibility(false)}
+                    >
                       Login
                     </Button>
                   </Form>
                 </Grid.Column>
                 <Grid.Column>
                   <Header>Register</Header>
-                  <Form>
+                  <Form onSubmit={(event) => registerUser(event)}>
                     <Form.Field widths='equal'>
                       <Form.Input
                         fluid
                         type='email'
                         label='email'
+                        name='email'
                         placeholder='email'
                         data-cy='registration-email-input'
-                        onChange={(e) => setEmail(e.target.value)}
+                        // onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                       <Form.Input
                         fluid
                         type='password'
                         label='Password'
+                        name='password'
                         placeholder='Password'
                         data-cy='registration-password'
-                        onChange={(e) => setPassword(e.target.value)}
+                        // onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                       <Form.Input
                         fluid
                         type='password'
                         label='Password'
+                        name='confirmPassword'
                         placeholder='Confirm Password'
                         data-cy='registration-confirmation-password'
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        // onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                       />
                     </Form.Field>
                     <Button
                       type='submit'
                       data-cy='form-register-btn'
-                      onClick={submit}
-                      >
+                      onClick={() => setVisibility(false)}
+                    >
                       Register
                     </Button>
                   </Form>

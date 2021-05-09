@@ -1,17 +1,30 @@
 describe('Visitor can see top 100 movies', () => {
   describe('successfully', () => {
-    before(() => {
-      cy.intercept(
-        'GET',
-        'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518',
-        {
-          fixture: 'top100Movies.json',
-        }
-      );
-      cy.intercept('POST', 'https://worldwidenetflix.herokuapp.com/api/auth', {
-        fixture: 'user_registration.json',
+    beforeEach(() => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518",
+        response: "fixture:top100Movies.json",
       });
+      cy.route({
+        method: "POST",
+        url: "http://localhost:3001/api/auth",
+        response: "fixture:user_registration.json",
+      });
+      cy.visit("/");
     });
+    //   cy.intercept(
+    //     'GET',
+    //     'https://worldwidenetflix.herokuapp.com/api/movies/?lat=55.7842&lon=12.4518',
+    //     {
+    //       fixture: 'top100Movies.json',
+    //     }
+    //   );
+    //   cy.intercept('POST', 'https://worldwidenetflix.herokuapp.com/api/auth', {
+    //     fixture: 'user_registration.json',
+    //   });
+    // });
   });
   
   describe('User can see register form', () => {

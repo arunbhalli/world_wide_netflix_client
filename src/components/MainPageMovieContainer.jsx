@@ -18,16 +18,12 @@ const MainPageMovieContainer = () => {
     try {
       const pos = await getPosition()
       const { latitude, longitude } = pos.coords
-      debugger
       if (latitude && longitude) {
-        debugger
         const response = await axios.get(`/movies/?lat=${latitude}&lon=${longitude}`);
-        debugger
         setTopTenMovies(response.data.body);
         setErrorMessage('');
       }
     } catch (error) {
-      debugger
       if (error.message === 'User denied Geolocation') {
         const response = await axios.get(`/movies/`);
         setTopTenMovies(response.data.body);
