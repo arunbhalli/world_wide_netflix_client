@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Modal,
   Button,
@@ -12,20 +13,52 @@ import {
 
 const LoginModal = () => {
   const [visibility, setVisibility] = useState(false);
+  const [renderForm, setRenderForm] = useState(false);
+
+  const registerUser = (event) => {
+    debugger;
+    event.preventDefault();
+    let credentials = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+      password_confirmation: event.target.passwordConfirmation.value,
+    };
+  };
+
+  try {
+    let response = await axios.post('/api/auth', credentials);
+    const userCredentials = {
+      uid: response.headers['uid'],
+      client: response.headers['client'],
+      access_token: response.headers['access-token'],
+      expiry: response.headers['expiry'],
+      token_type: 'Bearer',
+    };
+
+    localStorage.setItem('userData', JSON.stringify(userCredentials));
+      
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <Menu inverted>
       <Modal
         centered={false}
         open={visibility}
-        onClose={() => setVisibility(false)}
+        onClose={() => setRenderForm(false)}
+        onClose={() => {setVisibility(false); }}
         onOpen={() => setVisibility(true)}
+        onOpen={() => setRenderForm(true)}
+        open={renderForm}
         trigger={
           <Menu.Item position='right'>
             <Button data-cy='login-btn' color='red' inverted>
               Login/Register
             </Button>
           </Menu.Item>
-        }>
+        }
+      >
         <Modal.Header data-cy='login-modal-header'></Modal.Header>
         <Modal.Content data-cy='login-modal-content'>
           <Segment placeholder>
@@ -56,19 +89,21 @@ const LoginModal = () => {
                     <Button
                       type='submit'
                       data-cy='form-login-btn'
-                      onClick={() => setVisibility(false)}>
+                      onClick={() => setVisibility(false)}
+                    >
                       Login
                     </Button>
                   </Form>
                 </Grid.Column>
                 <Grid.Column>
                   <Header>Register</Header>
-                  <Form>
+                  <Form onSubmit={(event) => registerUser(event)}>
                     <Form.Field widths='equal'>
                       <Form.Input
                         fluid
                         type='email'
                         label='email'
+                        name='email'
                         placeholder='email'
                         data-cy='registration-email-input'
                         required
@@ -77,6 +112,7 @@ const LoginModal = () => {
                         fluid
                         type='password'
                         label='Password'
+                        name='password'
                         placeholder='Password'
                         data-cy='registration-password'
                         required
@@ -85,6 +121,7 @@ const LoginModal = () => {
                         fluid
                         type='password'
                         label='Password'
+                        name='confirmPassword'
                         placeholder='Confirm Password'
                         data-cy='registration-confirmation-password'
                         required
@@ -93,7 +130,8 @@ const LoginModal = () => {
                     <Button
                       type='submit'
                       data-cy='form-register-btn'
-                      onClick={() => setVisibility(false)}>
+                      onClick={() => setVisibility(false)}
+                    >
                       Register
                     </Button>
                   </Form>
