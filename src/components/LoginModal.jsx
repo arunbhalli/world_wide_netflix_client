@@ -16,7 +16,6 @@ const LoginModal = () => {
   const [renderForm, setRenderForm] = useState(false);
 
   const registerUser = async (event) => {
-    debugger;
     event.preventDefault();
     let credentials = {
       email: event.target.email.value,
@@ -25,17 +24,7 @@ const LoginModal = () => {
     };
 
     try {
-      let response = await axios.post('/api/auth', credentials);
-      const userCredentials = {
-        uid: response.headers['uid'],
-        client: response.headers['client'],
-        access_token: response.headers['access-token'],
-        expiry: response.headers['expiry'],
-        token_type: 'Bearer',
-      };
-
-      localStorage.setItem('userData', JSON.stringify(userCredentials));
-      
+      let response = await axios.post('/auth/', credentials);
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +112,7 @@ const LoginModal = () => {
                         fluid
                         type='password'
                         label='Password'
-                        name='confirmPassword'
+                        name='passwordConfirmation'
                         placeholder='Confirm Password'
                         data-cy='registration-confirmation-password'
                         required
