@@ -3,9 +3,9 @@ import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import MovieCard from '../components/MovieCard';
 
-const MainPageMovieContainer = () => {
+const MainPageMovieContainer = ({ update }) => {
   const [topTenMovies, setTopTenMovies] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState();
 
   const getPosition = () => {
     return new Promise((resolve, reject) => {
@@ -19,8 +19,10 @@ const MainPageMovieContainer = () => {
         const pos = await getPosition();
         const { latitude, longitude } = pos.coords;
         if (latitude && longitude) {
+          let headers = JSON.parse(localStorage.getItem('userData'));
           const response = await axios.get(
-            `/movies/?lat=${latitude}&lon=${longitude}`
+            `/movies/?lat=${latitude}&lon=${longitude}`,
+            { headers: headers }
           );
           setTopTenMovies(response.data.body);
           setErrorMessage('');
@@ -41,8 +43,8 @@ const MainPageMovieContainer = () => {
         }
       }
     };
-    fetchMovieData()
-  }, []);
+    fetchMovieData();
+  }, [update]);
 
   let movieList = topTenMovies.map((movie, i) => {
     return <MovieCard data-cy='movie-card' movie={movie} i={i} />;
