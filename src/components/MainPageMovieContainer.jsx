@@ -21,7 +21,6 @@ const MainPageMovieContainer = ({update}) => {
       const { latitude, longitude } = pos.coords
       if (latitude && longitude) {
         let headers = JSON.parse(localStorage.getItem('userData'))
-        debugger
         const response = await axios.get(`/movies/?lat=${latitude}&lon=${longitude}`, {headers:headers});
         setTopTenMovies(response.data.body);
         setErrorMessage('');
