@@ -1,4 +1,12 @@
 import React, { useState } from 'react';
+
+import {
+	injectStripe,
+	CardNumberElement,
+	CardExpiryElement,
+	CardCVCElement,
+  CardElement,
+} from 'react-stripe-elements';
 import {
 	Button,
 	Modal,
@@ -11,6 +19,13 @@ import {
 
 const BecomeSubscriber = ({ setUpdate }) => {
 	const [visibility, setVisibility] = useState();
+
+
+	const payWithStripe = async (event) => {
+		event.preventDefault();
+    let stripeResponse = stripe.createToken(CardElement)
+	
+	};
 
 	return (
 		<Modal
@@ -32,29 +47,23 @@ const BecomeSubscriber = ({ setUpdate }) => {
 						<Grid.Row verticalAlign='middle'>
 							<Grid.Column>
 								<Header as='h3'>Subscribe</Header>
-								<Form onSubmit={(event) => BecomeSubscriber(event)}>
-									<Form.Field widths={2}>
-										<Form.Input
-											fluid
-											type='email'
-											label='email'
-											name='email'
-											placeholder='email'
-											data-cy='login-email-input'
-											required
-										/>
-										<Form.Input
-											fluid
-											type='password'
-											label='Password'
-											name='password'
-											placeholder='Password'
-											data-cy='login-password'
-											required
-										/>
-									</Form.Field>
-									<Button type='submit' data-cy='subscribe-submit-btn'>
-										Login
+								<Form
+									data-cy='subscriber-form'
+									onSubmit={(event) => payWithStripe(event)}>
+									<div data-cy='card-number'>
+										<label>Card Number</label>
+										<CardNumberElement />
+									</div>
+									<div data-cy='expirydate'>
+										<label>Expiry Date</label>
+										<CardExpiryElement />
+									</div>
+									<div data-cy='cvc'>
+										<label>CVC</label>
+										<CardCVCElement />
+									</div>
+									<Button type='submit' data-cy='submit-payment'>
+										Subscribe
 									</Button>
 								</Form>
 							</Grid.Column>
@@ -69,4 +78,4 @@ const BecomeSubscriber = ({ setUpdate }) => {
 	);
 };
 
-export default BecomeSubscriber;
+export default injectStripe(BecomeSubscriber);

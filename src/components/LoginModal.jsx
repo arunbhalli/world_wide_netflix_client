@@ -10,7 +10,7 @@ import {
 	Header,
 	Menu,
 } from 'semantic-ui-react';
-import BecomeSubscriber from './BecomeSubscriber';
+
 
 const LoginModal = ({ setUpdate }) => {
 	const [visibility, setVisibility] = useState(false);
