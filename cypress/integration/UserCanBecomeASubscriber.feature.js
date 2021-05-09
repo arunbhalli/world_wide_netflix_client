@@ -18,9 +18,10 @@ describe('User can become a Subscriber', () => {
       cy.get('[data-cy=registration-password]').type('password');
       cy.get('[data-cy=registration-confirmation-password]').type('password');
       cy.get('[data-cy=form-register-btn]').click();
+      cy.get('[data-cy=close-login-modal]').click();
     });
     it('by filling in the correct card details', () => {
-      cy.get('[data-cy=become-subscriber]').click();
+      cy.get('[data-cy=subscribe-btn]').click();
       cy.get('[data-cy=payment-form]').should("exist");
     });
   });
