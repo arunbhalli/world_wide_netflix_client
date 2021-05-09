@@ -10,10 +10,11 @@ import {
   Header,
   Menu,
 } from 'semantic-ui-react';
+import BecomeSubscriber from './BecomeSubscriber';
 
 const LoginModal = ({setUpdate}) => {
   const [visibility, setVisibility] = useState(false);
-
+  
   const registerUser = async (event) => {
     event.preventDefault();
     let credentials = {
@@ -154,6 +155,7 @@ const LoginModal = ({setUpdate}) => {
                     >
                       Register
                     </Button>
+                    <BecomeSubscriber/>
                   </Form>
                 </Grid.Column>
               </Grid.Row>

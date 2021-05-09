@@ -4,20 +4,20 @@ describe('User can become a Subscriber', () => {
       cy.server();
       cy.route({
         method: 'GET',
-        url: 'http://localhost:3000/api/movies',
+        url: 'https://worldwidenetflix.herokuapp.com/api/movies/',
         response: 'fixture:top100Movies.json',
       });
       cy.route({
         methode: 'POST',
-        url: 'http://localhost:3000/api/auth',
+        url: 'https://worldwidenetflix.herokuapp.com/api/auth',
         response: 'fixture:user_registration.json',
       });
       cy.visit('/');
-      cy.get('[data-cy=register]').click();
-      cy.get('[data-cy=email-input]').type('user@gmail.com');
-      cy.get('[data-cy=passwords]').type('password');
-      cy.get('[data-cy=password-confirmation-input]').type('password');
-      cy.get('[data-cy=register]').click();
+      cy.get('[data-cy=login-btn]').click();
+      cy.get('[data-cy=registration-email-input]').type('user@gmail.com');
+      cy.get('[data-cy=registration-password]').type('password');
+      cy.get('[data-cy=registration-confirmation-password]').type('password');
+      cy.get('[data-cy=form-register-btn]').click();
     });
     it('by filling in the correct card details', () => {
       cy.get('[data-cy=become-subscriber]').click();
