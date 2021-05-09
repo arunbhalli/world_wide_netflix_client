@@ -6,10 +6,11 @@ import MainPageMovieContainer from './components/MainPageMovieContainer';
 
 function App() {
   const [update, setUpdate] = useState(false)
+  const [query, setQuery] = useState()
   return (
-    <>
-      <HeaderMainPage setUpdate={setUpdate} />
-      <MainPageMovieContainer update={update} />
+    <>    
+      <HeaderMainPage setUpdate={setUpdate} setQuery={setQuery}/>
+      <MainPageMovieContainer update={update} query={query}/>
       <Footer />
     </>
   );

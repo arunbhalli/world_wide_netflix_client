@@ -2,7 +2,7 @@ import React from 'react';
 import LoginModal from './LoginModal';
 import { Header, Segment } from 'semantic-ui-react';
 
-const HeaderMainPage = ({ setUpdate }) => {
+const HeaderMainPage = ({ setUpdate, setQuery }) => {
   return (
     <div data-cy='header'>
       <Segment inverted style={{ borderRadius: 0 }}>
@@ -13,7 +13,7 @@ const HeaderMainPage = ({ setUpdate }) => {
           Tired of watching the choice Netflix gives you, check out what is
           available around the globe!
         </Header>
-        <LoginModal setUpdate={setUpdate} />
+        <LoginModal setUpdate={setUpdate} setQuery={setQuery}/>
       </Segment>
     </div>
   );

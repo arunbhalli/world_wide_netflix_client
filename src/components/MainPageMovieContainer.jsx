@@ -3,7 +3,7 @@ import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import MovieCard from '../components/MovieCard';
 
-const MainPageMovieContainer = ({ update }) => {
+const MainPageMovieContainer = ({ update, query }) => {
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
 
@@ -43,8 +43,21 @@ const MainPageMovieContainer = ({ update }) => {
         }
       }
     };
+		const searchMovies = async (query) => {			
+			debugger
+			let headers = JSON.parse(localStorage.getItem('userData'));
+			debugger
+			const response = await axios.get(
+				`/movies/?query=${query}`,
+				{ headers: headers }
+			);
+			debugger
+			setTopTenMovies(response.data.body);
+			setErrorMessage('');
+		}
     fetchMovieData();
-  }, [update]);
+		searchMovies(query)
+  }, [update, query]);
 
   let movieList = topTenMovies.map((movie, i) => {
     return <MovieCard data-cy='movie-card' movie={movie} i={i} />;

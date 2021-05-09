@@ -12,8 +12,9 @@ import {
   Input,
 } from 'semantic-ui-react';
 
-const LoginModal = ({ setUpdate }) => {
+const LoginModal = ({ setUpdate, setQuery }) => {
   const [visibility, setVisibility] = useState(false);
+  //const [search, setSearch] = useState();
 
   const registerUser = async (event) => {
     event.preventDefault();
@@ -64,10 +65,25 @@ const LoginModal = ({ setUpdate }) => {
     }
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setQuery(event.target.search.value);
+  };
+
   return (
     <Menu inverted>
       <Menu.Item position='centered'>
-        <Input action='Search' placeholder='Search Movie...' />
+        <Form onSubmit={(event) => onSubmit(event)}>
+          <Form.Input
+            type='text'            
+            name='search'            
+            placeholder='Search Movie...'
+            data-cy='search-input'
+          />
+          <Button type='submit' data-cy='search-btn'>
+            Search
+          </Button>
+        </Form>
       </Menu.Item>
       <Modal
         centered={false}
