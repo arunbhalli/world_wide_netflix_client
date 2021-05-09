@@ -11,7 +11,7 @@ import {
   Menu,
 } from 'semantic-ui-react';
 
-const LoginModal = () => {
+const LoginModal = ({setUpdate}) => {
   const [visibility, setVisibility] = useState(false);
 
   const registerUser = async (event) => {
@@ -32,6 +32,8 @@ const LoginModal = () => {
         token_type: "Bearer"
       }
       localStorage.setItem('userData', JSON.stringify(userCredentials))
+      setUpdate(true)
+      setVisibility(false)
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +125,7 @@ const LoginModal = () => {
                     <Button
                       type='submit'
                       data-cy='form-register-btn'
-                      onClick={() => setVisibility(false)}
+                      // onClick={() => setVisibility(false)}
                     >
                       Register
                     </Button>
