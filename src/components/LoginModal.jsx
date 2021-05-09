@@ -37,6 +37,31 @@ const LoginModal = ({setUpdate}) => {
     } catch (error) {
       console.log(error);
     }
+  }
+
+
+  const logInUser = async (event) => {
+    event.preventDefault();
+    let credentials = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+
+    try {
+      let response = await axios.get('/auth/validate_token', credentials);
+      const userCredentials = {
+        uid: response.headers['uid'],
+        client: response.headers['client'],
+        access_token: response.headers['access-token'],
+        expiry: response.headers['expiry'],
+        token_type: "Bearer"
+      }
+      localStorage.setItem('userData', JSON.stringify(userCredentials))
+      setUpdate(true)
+      setVisibility(false)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -62,12 +87,13 @@ const LoginModal = ({setUpdate}) => {
               <Grid.Row verticalAlign='middle'>
                 <Grid.Column>
                   <Header as='h3'>Login</Header>
-                  <Form>
+                  <Form onSubmit={(event) => logInUser(event)}>
                     <Form.Field widths={2}>
                       <Form.Input
                         fluid
                         type='email'
                         label='email'
+                        name='email'
                         placeholder='email'
                         data-cy='login-email-input'
                         required
@@ -76,6 +102,7 @@ const LoginModal = ({setUpdate}) => {
                         fluid
                         type='password'
                         label='Password'
+                        name='password'
                         placeholder='Password'
                         data-cy='login-password'
                         required
