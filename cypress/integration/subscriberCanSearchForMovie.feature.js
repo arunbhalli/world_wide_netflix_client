@@ -11,6 +11,7 @@ describe('subscriber can search for movie by typing query param in the field', (
     });
 
     it('is expected to show Godfather movie', () => {
+      cy.visit('/')
       cy.get('[data-cy=search-input]').type('godfather')
       cy.get('[data-cy=search-btn]').click()
 

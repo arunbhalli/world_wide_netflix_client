@@ -9,9 +9,10 @@ import {
   Segment,
   Header,
   Menu,
+  Input,
 } from 'semantic-ui-react';
 
-const LoginModal = ({setUpdate}) => {
+const LoginModal = ({ setUpdate }) => {
   const [visibility, setVisibility] = useState(false);
 
   const registerUser = async (event) => {
@@ -29,16 +30,15 @@ const LoginModal = ({setUpdate}) => {
         client: response.headers['client'],
         access_token: response.headers['access-token'],
         expiry: response.headers['expiry'],
-        token_type: "Bearer"
-      }
-      localStorage.setItem('userData', JSON.stringify(userCredentials))
-      setUpdate(true)
-      setVisibility(false)
+        token_type: 'Bearer',
+      };
+      localStorage.setItem('userData', JSON.stringify(userCredentials));
+      setUpdate(true);
+      setVisibility(false);
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
 
   const logInUser = async (event) => {
     event.preventDefault();
@@ -48,17 +48,17 @@ const LoginModal = ({setUpdate}) => {
     };
 
     try {
-      let response = await axios.post("/auth/sign_in", credentials)
+      let response = await axios.post('/auth/sign_in', credentials);
       const userCredentials = {
         uid: response.headers['uid'],
         client: response.headers['client'],
         access_token: response.headers['access-token'],
         expiry: response.headers['expiry'],
-        token_type: "Bearer"
-      }
-      localStorage.setItem('userData', JSON.stringify(userCredentials))
-      setUpdate(true)
-      setVisibility(false)
+        token_type: 'Bearer',
+      };
+      localStorage.setItem('userData', JSON.stringify(userCredentials));
+      setUpdate(true);
+      setVisibility(false);
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +66,9 @@ const LoginModal = ({setUpdate}) => {
 
   return (
     <Menu inverted>
+      <Menu.Item position='centered'>
+        <Input action='Search' placeholder='Search Movie...' />
+      </Menu.Item>
       <Modal
         centered={false}
         open={visibility}
@@ -108,10 +111,7 @@ const LoginModal = ({setUpdate}) => {
                         required
                       />
                     </Form.Field>
-                    <Button
-                      type='submit'
-                      data-cy='form-login-btn'
-                    >
+                    <Button type='submit' data-cy='form-login-btn'>
                       Login
                     </Button>
                   </Form>
@@ -148,10 +148,7 @@ const LoginModal = ({setUpdate}) => {
                         required
                       />
                     </Form.Field>
-                    <Button
-                      type='submit'
-                      data-cy='form-register-btn'
-                    >
+                    <Button type='submit' data-cy='form-register-btn'>
                       Register
                     </Button>
                   </Form>
