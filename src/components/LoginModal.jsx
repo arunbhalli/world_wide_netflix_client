@@ -15,7 +15,6 @@ const LoginModal = ({setUpdate}) => {
   const [visibility, setVisibility] = useState(false);
 
   const registerUser = async (event) => {
-    debugger
     event.preventDefault();
     let credentials = {
       email: event.target.email.value,
@@ -42,7 +41,6 @@ const LoginModal = ({setUpdate}) => {
 
 
   const logInUser = async (event) => {
-    debugger
     event.preventDefault();
     let credentials = {
       email: event.target.email.value,
@@ -50,9 +48,7 @@ const LoginModal = ({setUpdate}) => {
     };
 
     try {
-      debugger
       let response = await axios.get('/auth/validate_token/', credentials);
-      debugger
       const userCredentials = {
         uid: response.headers['uid'],
         client: response.headers['client'],
@@ -61,10 +57,8 @@ const LoginModal = ({setUpdate}) => {
         token_type: "Bearer"
       }
       localStorage.setItem('userData', JSON.stringify(userCredentials))
-      debugger
       setUpdate(true)
       setVisibility(false)
-      debugger
     } catch (error) {
       console.log(error);
     }
@@ -117,7 +111,6 @@ const LoginModal = ({setUpdate}) => {
                     <Button
                       type='submit'
                       data-cy='form-login-btn'
-                      onClick={() => setVisibility(false)}
                     >
                       Login
                     </Button>
