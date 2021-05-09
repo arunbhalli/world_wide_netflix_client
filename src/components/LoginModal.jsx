@@ -13,7 +13,6 @@ import {
 
 const LoginModal = () => {
   const [visibility, setVisibility] = useState(false);
-  const [renderForm, setRenderForm] = useState(false);
 
   const registerUser = async (event) => {
     event.preventDefault();
@@ -25,6 +24,14 @@ const LoginModal = () => {
 
     try {
       let response = await axios.post('/auth/', credentials);
+      const userCredentials = {
+        uid: response.headers['uid'],
+        client: response.headers['client'],
+        access_token: response.headers['access-token'],
+        expiry: response.headers['expiry'],
+        token_type: "Bearer"
+      }
+      localStorage.setItem('userData', JSON.stringify(userCredentials))
     } catch (error) {
       console.log(error);
     }
@@ -35,13 +42,8 @@ const LoginModal = () => {
       <Modal
         centered={false}
         open={visibility}
-        onClose={() => setRenderForm(false)}
-        onClose={() => {
-          setVisibility(false);
-        }}
+        onClose={() => setVisibility(false)}
         onOpen={() => setVisibility(true)}
-        onOpen={() => setRenderForm(true)}
-        open={renderForm}
         trigger={
           <Menu.Item position='right'>
             <Button data-cy='login-btn' color='red' inverted>
