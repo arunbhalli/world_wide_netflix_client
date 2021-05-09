@@ -13,36 +13,35 @@ const MainPageMovieContainer = () => {
     });
   };
 
-  const fetchMovieData = async () => {
-    try {
-      const pos = await getPosition();
-      const { latitude, longitude } = pos.coords;
-      if (latitude && longitude) {
-        const response = await axios.get(
-          `/movies/?lat=${latitude}&lon=${longitude}`
-        );
-        setTopTenMovies(response.data.body);
-        setErrorMessage('');
-      }
-    } catch (error) {
-      if (error.message === 'User denied Geolocation') {
-        const response = await axios.get(`/movies/`);
-        setTopTenMovies(response.data.body);
-        setErrorMessage(
-          "Allow your location to show movies that's not from your country"
-        );
-      } else if (error.response.status === 500) {
-        setErrorMessage(
-          'Please try again later, our servers are currently not responding'
-        );
-      } else {
-        setErrorMessage(error.message);
-      }
-    }
-  };
-
   useEffect(() => {
-    fetchMovieData();
+    const fetchMovieData = async () => {
+      try {
+        const pos = await getPosition();
+        const { latitude, longitude } = pos.coords;
+        if (latitude && longitude) {
+          const response = await axios.get(
+            `/movies/?lat=${latitude}&lon=${longitude}`
+          );
+          setTopTenMovies(response.data.body);
+          setErrorMessage('');
+        }
+      } catch (error) {
+        if (error.message === 'User denied Geolocation') {
+          const response = await axios.get(`/movies/`);
+          setTopTenMovies(response.data.body);
+          setErrorMessage(
+            "Allow your location to show movies that's not from your country"
+          );
+        } else if (error.response.status === 500) {
+          setErrorMessage(
+            'Please try again later, our servers are currently not responding'
+          );
+        } else {
+          setErrorMessage(error.message);
+        }
+      }
+    };
+    fetchMovieData()
   }, []);
 
   let movieList = topTenMovies.map((movie, i) => {
