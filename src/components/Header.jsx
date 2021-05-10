@@ -16,7 +16,7 @@ const HeaderMainPage = (props) => {
 					available around the globe!
 				</Header>
 				<LoginModal setUpdate={props.setUpdate} />
-				<Elements setStripe={props.setStripe}>
+				<Elements>
 					<BecomeSubscriber setMessage={props.setMessage}/>
 				</Elements>
 			</Segment>

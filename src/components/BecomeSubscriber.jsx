@@ -20,20 +20,19 @@ const BecomeSubscriber = (props) => {
   const [visibility, setVisibility] = useState();
   const performPayment = async (stripeToken) => {
     let headers = JSON.parse(localStorage.getItem('userData'));
-    let response = await axios.post('/subscriptions/',
+    let response = await axios.post(
+      '/subscriptions/',
       { stripeToken: stripeToken },
-      { headers: headers })
-		debugger
-		if (response.data.paid) {
-			debugger
-			props.setMessage(response.data.message)
-			setVisibility(false)
-		};
+      { headers: headers }
+    );
+    if (response.data.paid) {
+      props.setMessage(response.data.message);
+      setVisibility(false);
+    }
   };
 
   const payWithStripe = async (event) => {
     event.preventDefault();
-		debugger
     const stripeResponse = await props.stripe.createToken();
     stripeResponse.token && performPayment(stripeResponse.token.id);
   };
