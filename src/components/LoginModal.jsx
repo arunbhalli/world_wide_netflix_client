@@ -11,7 +11,7 @@ import {
   Menu,
 } from 'semantic-ui-react';
 
-const LoginModal = ({ setUpdate, setQuery }) => {
+const LoginModal = (props) => {
   const [visibility, setVisibility] = useState(false);
 
   const registerUser = async (event) => {
@@ -32,7 +32,7 @@ const LoginModal = ({ setUpdate, setQuery }) => {
         token_type: 'Bearer',
       };
       localStorage.setItem('userData', JSON.stringify(userCredentials));
-      setUpdate(true);
+      props.setUpdate(true);
       setVisibility(false);
     } catch (error) {
       console.log(error);
@@ -56,7 +56,7 @@ const LoginModal = ({ setUpdate, setQuery }) => {
         token_type: 'Bearer',
       };
       localStorage.setItem('userData', JSON.stringify(userCredentials));
-      setUpdate(true);
+      props.setUpdate(true);
       setVisibility(false);
     } catch (error) {
       console.log(error);
@@ -65,7 +65,7 @@ const LoginModal = ({ setUpdate, setQuery }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    setQuery(event.target.search.value);
+    props.setQuery(event.target.search.value);
   };
 
   return (
@@ -94,8 +94,7 @@ const LoginModal = ({ setUpdate, setQuery }) => {
               Login/Register
             </Button>
           </Menu.Item>
-        }
-      >
+        }>
         <Modal.Header data-cy='login-modal-header'></Modal.Header>
         <Modal.Content data-cy='login-modal-content'>
           <Segment placeholder>

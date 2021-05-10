@@ -1,8 +1,10 @@
 import React from 'react';
 import LoginModal from './LoginModal';
 import { Header, Segment } from 'semantic-ui-react';
+import BecomeSubscriber from './BecomeSubscriber';
+import { Elements } from 'react-stripe-elements';
 
-const HeaderMainPage = ({ setUpdate, setQuery }) => {
+const HeaderMainPage = (props) => {
   return (
     <div data-cy='header'>
       <Segment inverted style={{ borderRadius: 0 }}>
@@ -13,7 +15,10 @@ const HeaderMainPage = ({ setUpdate, setQuery }) => {
           Tired of watching the choice Netflix gives you, check out what is
           available around the globe!
         </Header>
-        <LoginModal setUpdate={setUpdate} setQuery={setQuery}/>
+        <LoginModal setQuery={props.setQuery} setUpdate={props.setUpdate} />
+        <Elements>
+          <BecomeSubscriber setMessage={props.setMessage} />
+        </Elements>
       </Segment>
     </div>
   );
