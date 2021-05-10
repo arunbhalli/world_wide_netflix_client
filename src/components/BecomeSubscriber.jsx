@@ -5,7 +5,6 @@ import {
 	CardNumberElement,
 	CardExpiryElement,
 	CardCVCElement,
-  CardElement,
 } from 'react-stripe-elements';
 import {
 	Button,
@@ -17,14 +16,18 @@ import {
 	Form,
 } from 'semantic-ui-react';
 
-const BecomeSubscriber = ({ setUpdate }) => {
+const BecomeSubscriber = (props) => {
 	const [visibility, setVisibility] = useState();
-
+	const [stripeTokenError, setStripeTokenError] = useState('');
 
 	const payWithStripe = async (event) => {
 		event.preventDefault();
-    let stripeResponse = stripe.createToken(CardElement)
-	
+		const stripeResponse = await props.stripe.createToken();
+
+		// if (stripeResponse.error) {
+		// 	setStripeTokenError(stripeResponse.error.message);
+		// } else {
+		props.stripe.submitPayment(stripeResponse);
 	};
 
 	return (
