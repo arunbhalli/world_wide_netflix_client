@@ -7,12 +7,14 @@ function App() {
   const [update, setUpdate] = useState(false);
   const [query, setQuery] = useState();
   const [message, setMessage] = useState('');
+  
+
   return (
     <>
       <HeaderMainPage
         setUpdate={setUpdate}
         setQuery={setQuery}
-        setMessage={setMessage}
+        setMessage={setMessage}        
       />
       <MainPageMovieContainer update={update} query={query} message={message} />
       <Footer/>

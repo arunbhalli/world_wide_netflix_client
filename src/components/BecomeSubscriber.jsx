@@ -28,6 +28,7 @@ const BecomeSubscriber = (props) => {
     if (response.data.paid) {
       props.setMessage(response.data.message);
       setVisibility(false);
+			props.setSubscribed(true)
     }
   };
 

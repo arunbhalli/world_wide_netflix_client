@@ -34,6 +34,7 @@ const LoginModal = (props) => {
       localStorage.setItem('userData', JSON.stringify(userCredentials));
       props.setUpdate(true);
       setVisibility(false);
+			props.setAuthenticated(true)
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +59,7 @@ const LoginModal = (props) => {
       localStorage.setItem('userData', JSON.stringify(userCredentials));
       props.setUpdate(true);
       setVisibility(false);
+			props.setAuthenticated(true)
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +73,7 @@ const LoginModal = (props) => {
   return (
     <Menu inverted>
       <Menu.Item position='centered'>
-        <Form onSubmit={(event) => onSubmit(event)}>
+        {props.subscribed && <Form onSubmit={(event) => onSubmit(event)}>
           <Form.Input
             type='text'
             name='search'
@@ -81,7 +83,7 @@ const LoginModal = (props) => {
           <Button type='submit' data-cy='search-btn'>
             Search
           </Button>
-        </Form>
+        </Form>}
       </Menu.Item>
       <Modal
         centered={false}
