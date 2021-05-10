@@ -4,7 +4,7 @@ import { Header, Segment } from 'semantic-ui-react';
 import BecomeSubscriber from './BecomeSubscriber';
 import { Elements } from 'react-stripe-elements';
 
-const HeaderMainPage = ({ setUpdate, setStripe }) => {
+const HeaderMainPage = ({ setUpdate, setStripe, setMessage }) => {
 	return (
 		<div data-cy='header'>
 			<Segment inverted style={{ borderRadius: 0 }}>
@@ -17,7 +17,7 @@ const HeaderMainPage = ({ setUpdate, setStripe }) => {
 				</Header>
 				<LoginModal setUpdate={setUpdate} />
 				<Elements setStripe={setStripe}>
-					<BecomeSubscriber />
+					<BecomeSubscriber setMessage={setMessage}/>
 				</Elements>
 			</Segment>
 		</div>

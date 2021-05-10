@@ -3,7 +3,7 @@ import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import MovieCard from '../components/MovieCard';
 
-const MainPageMovieContainer = ({ update }) => {
+const MainPageMovieContainer = ({ update, message }) => {
   const [topTenMovies, setTopTenMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
 
@@ -44,7 +44,7 @@ const MainPageMovieContainer = ({ update }) => {
       }
     };
     fetchMovieData();
-  }, [update]);
+  }, [update, message]);
 
   let movieList = topTenMovies.map((movie, i) => {
     return <MovieCard data-cy='movie-card' movie={movie} i={i} />;
@@ -53,6 +53,7 @@ const MainPageMovieContainer = ({ update }) => {
   return (
     <Container>
       {errorMessage && <h1 data-cy='error-message'>{errorMessage}</h1>}
+      {message && <h1 data-cy='success-message'>{message}</h1>}
       <Card.Group data-cy='movie-container' itemsPerRow={5} centered>
         {movieList}
       </Card.Group>
