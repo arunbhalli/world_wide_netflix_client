@@ -54,7 +54,7 @@ const MainPageMovieContainer = ({ update, query }) => {
     };
 
     fetchMovieData(query);
-  }, [query, update]);
+  }, [update, query]);
 
   let movieList = topTenMovies.map((movie, i) => {
     return <MovieCard data-cy='movie-card' movie={movie} i={i} />;

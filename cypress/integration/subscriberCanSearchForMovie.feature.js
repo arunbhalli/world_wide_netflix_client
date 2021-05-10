@@ -23,7 +23,7 @@ describe('subscriber can search for movie by typing query param in the field', (
             'The Godfather'
           );
           cy.get('[data-cy=flag-list]').find('i').should('have.length', 10);
-          cy.get('[data-cy=netflix-link]').should('have.attr', 'href').and('equal', 'https://netflix.com/title/60011152')
+          cy.get('[data-cy=netflix-link]').should('contain.text', '/title/60011152')
         });
       })
     })
