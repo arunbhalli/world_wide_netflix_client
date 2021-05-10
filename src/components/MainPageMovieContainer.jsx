@@ -18,6 +18,7 @@ const MainPageMovieContainer = (props) => {
       try {
         if (query) {
           let headers = JSON.parse(localStorage.getItem('userData'));
+          
           const response = await axios.get(`/movies/?query=${query}`, {
             headers: headers,
           });

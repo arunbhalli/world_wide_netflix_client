@@ -65,26 +65,10 @@ const LoginModal = (props) => {
     }
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    props.setQuery(event.target.search.value);
-  };
+  
 
   return (
-    <Menu inverted>
-      <Menu.Item position='centered'>
-        {props.subscribed && <Form onSubmit={(event) => onSubmit(event)}>
-          <Form.Input
-            type='text'
-            name='search'
-            placeholder='Search Movie...'
-            data-cy='search-input'
-          />
-          <Button type='submit' data-cy='search-btn'>
-            Search
-          </Button>
-        </Form>}
-      </Menu.Item>
+    <Menu inverted>      
       <Modal
         centered={false}
         open={visibility}
