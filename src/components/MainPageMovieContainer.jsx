@@ -18,9 +18,18 @@ const MainPageMovieContainer = (props) => {
       try {
         if (query) {
           let headers = JSON.parse(localStorage.getItem('userData'));
-          
+
+          let credentials = {
+            'access-token': headers.access_token,
+            'token-type': headers.token_type,
+            'client': headers.client,
+            'expiry': headers.expiry,
+            'uid': headers.uid,
+          };
+          await axios.get('/auth/validate_token', {headers: credentials});
+
           const response = await axios.get(`/movies/?query=${query}`, {
-            headers: headers,
+            headers: credentials,
           });
           setTopTenMovies(response.data.body);
           setErrorMessage('');
