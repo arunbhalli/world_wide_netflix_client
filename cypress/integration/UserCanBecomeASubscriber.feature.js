@@ -53,12 +53,12 @@ describe('User can become a Subscriber', () => {
             cy.wrap($body).find('input[name="cvc"]').type('424', { delay: 50 });
           });
         });
-        cy.get('[data-cy=submit-payment]').click();
-        cy.get('[data-cy=success-message]').should(
-          'contain',
-          'Thank you for subscribing!'
-        );
+        cy.get('[data-cy=submit-payment]').click();        
       });
+			cy.get('[data-cy=success-message]').should(
+				'contain',
+				'Thank you for subscribing!'
+			);
     });
   });
 });

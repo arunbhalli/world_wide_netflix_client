@@ -16,30 +16,26 @@ import {
   Form,
 } from 'semantic-ui-react';
 
-const BecomeSubscriber = (props, {setMessage}) => {
+const BecomeSubscriber = (props) => {
   const [visibility, setVisibility] = useState();
-  //const [stripeTokenError, setStripeTokenError] = useState('');
-
   const performPayment = async (stripeToken) => {
     let headers = JSON.parse(localStorage.getItem('userData'));
     let response = await axios.post('/subscriptions/',
       { stripeToken: stripeToken },
       { headers: headers })
-
+		debugger
 		if (response.data.paid) {
-			setMessage(response.data.message)
+			debugger
+			props.setMessage(response.data.message)
+			setVisibility(false)
 		};
   };
 
   const payWithStripe = async (event) => {
     event.preventDefault();
+		debugger
     const stripeResponse = await props.stripe.createToken();
     stripeResponse.token && performPayment(stripeResponse.token.id);
-
-    // if (stripeResponse.error) {
-    // 	setStripeTokenError(stripeResponse.error.message);
-    // } else {
-    //props.stripe.submitPayment(stripeResponse);
   };
 
   return (
