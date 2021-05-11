@@ -17,6 +17,17 @@ describe('User can become a Subscriber', () => {
         url: 'https://worldwidenetflix.herokuapp.com/api/subscriptions',
         response: 'fixture:successful_payment.json',
       });
+      cy.route({
+        method: 'GET',
+        url: 'https://worldwidenetflix.herokuapp.com/api/movies/?query=godfather',
+        response: 'fixture:godfather.json',
+      })
+      cy.route({
+        method: 'GET',
+        url: 'https://worldwidenetflix.herokuapp.com/api/auth/validate_token',
+        response: 'fixture:sign_in.json',
+      });
+      
       cy.visit('/');
       cy.get('[data-cy=login-btn]').click();
       cy.get('[data-cy=registration-email-input]').type('user@gmail.com');
@@ -59,6 +70,20 @@ describe('User can become a Subscriber', () => {
 				'contain',
 				'Thank you for subscribing!'
 			);
+      cy.get('[data-cy=search-input]').type('godfather')
+      cy.get('[data-cy=search-btn]').click()
+
+      cy.get('[data-cy=movie-container]').find('img').should('have.length', 1);
+      cy.get('[data-cy=movie-container]').within(() => {
+        cy.get('[data-cy=movie-0]').within(() => {
+          cy.get('[data-cy=title-header]').should(
+            'contain',
+            'The Godfather'
+          );
+          cy.get('[data-cy=flag-list]').find('i').should('have.length', 10);
+          cy.get('[data-cy=netflix-link]').should('contain.text', '/title/60011152')
+        });
+      })
     });
   });
 });
