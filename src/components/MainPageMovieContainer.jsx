@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Container } from 'semantic-ui-react';
+import { Card, Container, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import MovieCard from '../components/MovieCard';
 
@@ -53,7 +53,7 @@ const MainPageMovieContainer = (props) => {
           setErrorMessage(
             "Allow your location to show movies that's not from your country"
           );
-        } else if (error.response.status === 500) {
+        } else if (error.status === 500) {
           setErrorMessage(
             'Please try again later, our servers are currently not responding'
           );
@@ -72,8 +72,8 @@ const MainPageMovieContainer = (props) => {
 
   return (
     <Container>
-      {errorMessage && <h1 data-cy='error-message'>{errorMessage}</h1>}
-      {props.message && <h1 data-cy='success-message'>{props.message}</h1>}
+      {errorMessage && <Header data-cy='error-message' color='red' >{errorMessage}</Header>}
+      {props.message && <Header data-cy='success-message' color='red' >{props.message}</Header>}
       <Card.Group data-cy='movie-container' itemsPerRow={5} centered>
         {movieList}
       </Card.Group>
